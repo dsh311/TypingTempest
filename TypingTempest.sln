@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypingTempest", "TypingTempest.csproj", "{55F589E1-5680-40E7-9C14-AB4A9CACAAC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55F589E1-5680-40E7-9C14-AB4A9CACAAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F589E1-5680-40E7-9C14-AB4A9CACAAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F589E1-5680-40E7-9C14-AB4A9CACAAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F589E1-5680-40E7-9C14-AB4A9CACAAC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26DB3FA1-4C4E-472D-A753-ED1EB66003FA}
+	EndGlobalSection
+EndGlobal

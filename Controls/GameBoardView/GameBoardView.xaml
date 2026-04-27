@@ -1,0 +1,477 @@
+﻿<UserControl x:Class="TypingTempest.Controls.GameBoardView.GameBoardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TypingTempest.Controls.GameBoardView"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1400">
+    <Grid Background="Black">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+
+            <RowDefinition Height="auto" />
+
+            <RowDefinition Height="25" />
+
+            <!-- Open file bar -->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="Black"/>
+
+        <!-- Top Bar -->
+        <Grid Grid.Row="1" Background="Black" VerticalAlignment="Top" >
+            <Grid.ColumnDefinitions>
+                <!-- Image column -->
+                <ColumnDefinition Width="130"/>
+                <!-- Vertical line -->
+                <ColumnDefinition Width="2"/>
+
+                <!-- Stats column -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Vertical line -->
+                <ColumnDefinition Width="2"/>
+
+                <ColumnDefinition Width="*"/>
+
+
+                <!-- Stats column -->
+                <ColumnDefinition Width="Auto"/>
+
+
+            </Grid.ColumnDefinitions>
+
+            <!-- Logo Image -->
+            <StackPanel Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center">
+
+                <Button Click="Logo_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Padding="0">
+
+                    <Image Source="pack://application:,,,/Controls/GameBoardView/Assets/logo.png"
+                       Width="100"
+                       Stretch="Fill"/>
+                </Button>
+
+
+                <TextBlock Text="BY DAVID S. SHELLEY" 
+                   Foreground="White" 
+                   FontSize="12" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,0,0,0"/>
+            </StackPanel>
+
+            <!-- Vertical line -->
+            <Border Grid.Column="1" Background="White"/>
+
+
+            <!-- Load Lesson and Current Lesson -->
+            <Grid Grid.Column="2" Background="Black">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <!-- Open file bar -->
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Load Lession Folder -->
+                <Grid Grid.Row="0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Column="0"
+                        Width="90"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        Content="Lesson Folder:"/>
+
+                    <!-- Lesson group name -->
+                    <TextBlock x:Name="LessonGroupName"
+                        Grid.Column="1"
+                        Foreground="Black" Background="White" />
+
+                    <!-- Left: Load Lesson Folder -->
+                    <Button Grid.Column="2"
+                        Content="Load Lesson Folder"
+                        Click="LoadLessonFolder_Click"/>
+                </Grid>
+
+
+                <Grid Grid.Row="1" Background="Black">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Lesson label -->
+                    <Label
+                        Grid.Column="0"
+                        Width="90"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        Content="Lesson:"/>
+
+                    <!-- Lesson selector -->
+                    <ComboBox
+                        Grid.Column="1"
+                        x:Name="LessonsComboBox"
+                        Width="250"
+                        ItemsSource="{Binding LessonFiles}"
+                        SelectedIndex="{Binding SelectedLessonIndex}"
+                        Foreground="Black"
+                        BorderBrush="#555"/>
+
+                    <StackPanel Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Margin="8,0">
+
+                        <!-- Prev button -->
+                        <Button Content="Prev"
+                        Width="40"
+                        Margin="0,0,6,0"
+                        Command="{Binding PrevLessonCommand}"/>
+
+                        <!-- Next button -->
+                        <Button Content="Next"
+                        Width="40"
+                        Margin="0,0,6,0"
+                        Command="{Binding NextLessonCommand}"/>
+
+                        <!-- Restart button -->
+                        <Button Content="Restart"
+                        Width="40"
+                        Command="{Binding RestartLessonCommand}"/>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+
+
+
+
+
+            <Grid Grid.Column="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2"/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                    <!-- Vertical line -->
+                    <ColumnDefinition Width="2"/>
+
+                    <!-- Time Elapsed -->
+                    <ColumnDefinition Width="Auto"/>
+
+                    <ColumnDefinition Width="2"/>
+
+
+                    <!-- File Elapsed -->
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+                <!-- Vertical line -->
+                <Border Grid.Column="0" Background="White"/>
+
+                <!-- Stats Column -->
+                <Grid Grid.Column="1" Width="200" Margin="20,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <!-- Open file bar -->
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" >
+                        <TextBlock Text="WPM: " Foreground="White" FontWeight="Bold"/>
+                        <TextBlock Width="60" />
+                    </StackPanel>
+
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Accuracy: " Foreground="White" FontWeight="Bold"/>
+                        <TextBlock Width="60" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- Vertical line -->
+                <Border Grid.Column="2" Background="White"/>
+
+
+                <!-- History Stats Column -->
+                <Grid Grid.Column="3" Background="Black">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <!-- Open file bar -->
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <TextBlock Text="Word Errors History: " Foreground="White" FontWeight="Bold"/>
+                        <TextBlock Width="60" />
+                    </StackPanel>
+
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Char Errors History: " Foreground="White" FontWeight="Bold"/>
+                        <TextBlock Width="60" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- Vertical line -->
+                <Border Grid.Column="4" Background="White" />
+
+                <!-- History Stats Column -->
+                <Grid Grid.Column="5" Background="Black">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <TextBlock Text="Time Elapsed: " Foreground="White" FontWeight="Bold"/>
+                        <TextBlock x:Name="ElapsedTime" Width="60" />
+                    </StackPanel>
+
+
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+
+        <Border Grid.Row="2" Background="Black"/>
+
+
+        <!-- Bottom Code-->
+        <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="2">
+            <Grid Background="Black">
+                <Grid.ColumnDefinitions>
+                    <!-- Image column -->
+                    <ColumnDefinition Width="400"/>
+                    <!-- Vertical line -->
+                    <ColumnDefinition Width="Auto"/>
+
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- LEFT SIDE -->
+                <Grid Grid.Column="0" Background="Black">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer
+                    Grid.Row="0"
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Auto"
+                    Padding="8">
+
+                        <TextBox
+                        x:Name="InfoTextBox"
+                        Text="{Binding InfoText}"
+                        BorderThickness="0"
+                        Background="Black"
+                        Foreground="White"
+                        TextWrapping="Wrap"/>
+                    </ScrollViewer>
+
+
+
+                </Grid>
+
+                <!-- SPLITTER -->
+                <GridSplitter
+                Grid.Column="1"
+                Grid.RowSpan="4"
+                Width="5"
+                Background="#444"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                ResizeDirection="Columns"
+                ResizeBehavior="PreviousAndNext"/>
+
+
+                <!-- RIGHT SIDE -->
+                <Grid x:Name="RightSide" Grid.Column="2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <!-- Open file bar -->
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="100" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Right: Font Size controls -->
+                    <StackPanel Grid.Row="0"
+                        Background="Black"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        Margin="8,0">
+
+                        <Label Foreground="White" Content="Font Size:"/>
+
+                        <Slider x:Name="FontSizeSlider"
+                            Width="120"
+                            Margin="6,0,0,0"
+                            Minimum="8"
+                            Maximum="40"
+                            Value="{Binding Settings.Editor.FontSize, Mode=TwoWay}" />
+                        
+                        <!--
+                        <Slider x:Name="FontSizeSlider"
+                            Width="120"
+                            Margin="6,0,0,0"
+                            Minimum="8"
+                            Maximum="40"
+                            Value="{Binding ElementName=CodeEditor,
+                                    Path=FontSize,
+                                    Mode=TwoWay}" />
+                        -->
+
+                        <CheckBox
+                            Content="Show Speach Characters"
+                            Foreground="White"
+                            Checked="Debug_Checked"
+                            Unchecked="Debug_Unchecked"/>
+
+                        <CheckBox Content="Syntax Highlighting" Foreground="White"
+                            IsChecked="{Binding Settings.Editor.SyntaxHighlighting}" />
+
+                        <CheckBox Content="Speech Enabled" Foreground="White"
+                            IsChecked="{Binding Settings.Audio.SpeechEnabled}" />
+
+                    </StackPanel>
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBox Grid.Row="0" x:Name="textspeak"
+                                Height="25"
+                                Grid.Column="0" 
+                                Background="Black"
+                                Foreground="White"/>
+                        <TextBox Grid.Row="1" x:Name="textinfo"
+                                Height="25"
+                                Grid.Column="0" 
+                                Background="Black"
+                                Foreground="White"/>
+                    </Grid>
+
+                    <!-- The Editor -->
+                    <avalonEdit:TextEditor
+                        Grid.Row="2"
+                        x:Name="CodeEditor"
+                        IsReadOnly="True"
+                        local:AvalonEditHelper.BindableText="{Binding CodeText, Mode=TwoWay}"
+                        FontFamily="Consolas"
+                        FontSize="{Binding Settings.Editor.FontSize, Mode=TwoWay}"
+                        FontWeight="Bold"
+                        Background="#1E1E1E"
+                        Foreground="#DCDCDC"
+                        ShowLineNumbers="True"
+                        Padding="8,8,0,8"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto"
+                        PreviewMouseWheel="CodeEditor_PreviewMouseWheel"/>
+
+
+                    <TextBox x:Name="input"
+                        Grid.Row="3"
+                        Background="Black"
+                        Foreground="White"
+                        TextAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontFamily="Consolas"
+                        FontSize="65"
+                        BorderThickness="0"
+                        CaretBrush="White"
+                        PreviewKeyDown="InputBox_PreviewKeyDown"
+                        PreviewTextInput="InputBox_PreviewTextInput"/>
+
+                    <!-- Hide by setting height to 1 -->
+                    <Grid Grid.Row="4"
+                        x:Name="DebugPanel"
+                        KeyboardNavigation.IsTabStop="False"
+                        KeyboardNavigation.TabNavigation="None">
+                        <Grid.ColumnDefinitions>
+                            <!-- Image column -->
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="typedwords"
+                            Grid.Column="0" 
+                            Height="100"
+                            Background="Black"
+                            Foreground="White"/>
+
+
+                        <!-- Debug Stats Column -->
+                        <Grid Grid.Column="1" Background="Black">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <!-- Open file bar -->
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <TextBlock Text="Current Word Text: " Foreground="White" FontWeight="Bold"/>
+                                <TextBlock x:Name="currentWord" Foreground="White" Width="60" />
+                            </StackPanel>
+
+                            <StackPanel  Grid.Row="1" Orientation="Horizontal">
+                                <TextBlock Text="Word Start Char Loc: " Foreground="White" FontWeight="Bold"/>
+                                <TextBlock x:Name="currentWordStartOffset" Foreground="White" Width="60" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                <TextBlock Text="Word End Char Loc: " Foreground="White" FontWeight="Bold"/>
+                                <TextBlock x:Name="currentWordEndOffset" Foreground="White" Width="60" />
+                            </StackPanel>
+
+                            <StackPanel  Grid.Row="3" Orientation="Horizontal">
+                                <TextBlock Text="Next Character Loc: " Foreground="White" FontWeight="Bold"/>
+                                <TextBlock x:Name="currentWordRelativeOffset" Foreground="White" Width="60" />
+                            </StackPanel>
+
+                            <StackPanel  Grid.Row="4" Orientation="Horizontal">
+                                <TextBlock Text="Clicked Char Loc: " Foreground="White" FontWeight="Bold"/>
+                                <TextBlock x:Name="clickedCharOffset" Foreground="White" Width="60" />
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Grid>
+
+
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+
+    </Grid>
+</UserControl>

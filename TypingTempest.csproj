@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\mainmenu.png" />
+    <None Remove="Controls\GameBoardView\Assets\logo.png" />
+    <None Remove="Controls\MainMenuView\Assets\exit.png" />
+    <None Remove="Controls\MainMenuView\Assets\start.png" />
+    <None Remove="Controls\MainMenuView\Assets\title.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Controls\GameBoardView\Assets\logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Controls\MainMenuView\Assets\exit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Controls\MainMenuView\Assets\mainmenu.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Controls\MainMenuView\Assets\start.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Controls\MainMenuView\Assets\title.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
+    <PackageReference Include="System.Speech" Version="10.0.3" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Content Include=".\Assets\**\*.*">
+			<Link>Assets\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+</Project>

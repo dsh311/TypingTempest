@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="TypingTempest.Controls.MainMenuView.MainMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TypingTempest.Controls.MainMenuView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700">
+
+    <Grid>
+
+        <!-- Background -->
+        <Grid.Background>
+            <ImageBrush
+            ImageSource="pack://application:,,,/Controls/MainMenuView/Assets/mainmenu.png"
+            Stretch="Fill"/>
+        </Grid.Background>
+
+        <!-- Title + Author -->
+        <Grid
+        VerticalAlignment="Top"
+        HorizontalAlignment="Center"
+        Margin="0,12,0,0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Image
+            Grid.Row="0"
+            Source="pack://application:,,,/Controls/MainMenuView/Assets/title.png"
+            Stretch="None"/>
+
+            <TextBlock
+            Grid.Row="1"
+            Text="BY DAVID S. SHELLEY"
+            Foreground="White"
+            FontSize="14"
+            FontWeight="SemiBold"
+            Margin="0,6,0,0"
+            HorizontalAlignment="Center"/>
+        </Grid>
+
+        <!-- Bottom Buttons -->
+        <Grid
+        VerticalAlignment="Bottom"
+        Margin="16">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Exit Button (Bottom Left) -->
+            <Button
+            Grid.Column="0"
+            Click="Exit_Click"
+            Background="Transparent"
+            BorderThickness="0"
+            Cursor="Hand">
+
+                <Image
+                Source="pack://application:,,,/Controls/MainMenuView/Assets/exit.png"
+                Width="128"
+                Stretch="Uniform"/>
+            </Button>
+
+            <!-- Start Button (Bottom Right) -->
+            <Button
+            Grid.Column="2"
+            Click="Start_Click"
+            Background="Transparent"
+            BorderThickness="0"
+            Cursor="Hand">
+
+                <Image
+                Source="pack://application:,,,/Controls/MainMenuView/Assets/start.png"
+                Width="128"
+                Stretch="Uniform"/>
+            </Button>
+        </Grid>
+
+        
+        <!-- Matrix Rain Layer -->
+        <Canvas x:Name="RainCanvas"
+            IsHitTestVisible="False"
+            Panel.ZIndex="1"/>
+
+    </Grid>
+
+
+
+</UserControl>
