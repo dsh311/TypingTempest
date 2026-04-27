@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Binary Tree Level Order Traversal.
+Given a binary tree, return its level order traversal.
+
+In level order traversal, nodes are visited level by level, starting from the root.
+Each level is processed from left to right.
+The result should be returned as a list of lists of integers, where each list represents a level of the tree.
+
+Input (Binary Tree Structure):
+        1
+       / \
+      2   3
+     / \ / \
+    4  5 6  7
+
+Output:
+Level order traversal of the binary tree:
+1
+2, 3
+4, 5, 6, 7
+
+Explanation:
+* Level 1: Only the root node 1.
+* Level 2: Nodes 2 and 3.
+* Level 3: Nodes 4, 5, 6, and 7.
+
+Constraints:
+* The number of nodes in the tree is in the range [0, 2000].
+* TreeNode.val is in the range [-1000, 1000].
+
+Approach:
+1. Breadth-First Search (BFS):
+
+* We can use a queue to process the tree level by level.
+* For each level, enqueue all the nodes of that level, and process them from left to right.
+* Add the nodes at each level to a list, and continue to the next level until all nodes are processed.
+
+2. Time Complexity:
+* O(n), where n is the number of nodes in the binary tree, as each node is processed once.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+using System;
+using System.Collections.Generic;
+
+public class TreeNode
+{
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+    {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+public class BinaryTree
+{
+    public List<List<int>> LevelOrder(TreeNode root)
+    {
+        List<List<int>> result = new List<List<int>>();
+
+        if (root == null)
+            return result;
+
+        Queue<TreeNode> queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
+
+        while (queue.Count > 0)
+        {
+            int levelSize = queue.Count;
+            List<int> currentLevel = new List<int>();
+
+            for (int i = 0; i < levelSize; i++)
+            {
+                TreeNode currentNode = queue.Dequeue();
+                currentLevel.Add(currentNode.val);
+
+                if (currentNode.left != null)
+                    queue.Enqueue(currentNode.left);
+
+                if (currentNode.right != null)
+                    queue.Enqueue(currentNode.right);
+            }
+
+            result.Add(currentLevel);
+        }
+
+        return result;
+    }
+}
+
+// Creating a sample binary tree:
+TreeNode root = new TreeNode(1);
+root.left = new TreeNode(2);
+root.right = new TreeNode(3);
+root.left.left = new TreeNode(4);
+root.left.right = new TreeNode(5);
+root.right.left = new TreeNode(6);
+root.right.right = new TreeNode(7);
+
+BinaryTree tree = new BinaryTree();
+List<List<int>> levelOrderTraversal = tree.LevelOrder(root);
+
+// Output the result
+Console.WriteLine("Level order traversal of the binary tree:");
+foreach (var level in levelOrderTraversal)
+{
+    Console.WriteLine(string.Join(", ", level));
+}
+
+]]>
+		</code>
+	</section>
+</sections>
+
+</lesson>

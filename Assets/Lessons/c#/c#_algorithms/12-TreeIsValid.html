@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Graph Valid Tree
+
+Given a graph represented as an undirected, unweighted graph with n nodes and a list of edges,
+the task is to determine if the graph is a valid tree. A tree is considered valid if it meets
+the following criteria:
+
+1. Connectivity: The graph must be fully connected, meaning there should be a path between any two nodes.
+2. Acyclicity: The graph should not contain any cycles. If a cycle is present, the graph cannot be a tree.
+
+You are given the number of nodes n (0 ≤ n ≤ 1000) and an array of edges where each edge is represented
+as a pair [a, b] indicating an undirected edge between nodes a and b.
+
+Example:
+For the following graph:
+
+  0
+ /|\
+1 2 3
+ |
+ 4
+
+With n = 5 and edges = [[0, 1], [0, 2], [0, 3], [1, 4]], the graph is a valid tree because:
+
+All nodes are connected.
+There are no cycles.
+
+Expected Output:
+Is valid tree: true
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+using System;
+using System.Collections.Generic;
+
+public class GraphValidTree
+{
+    // Helper function to find the root of a node
+    private int Find(int[] parent, int i)
+    {
+        if (parent[i] == -1)
+            return i;
+        return parent[i] = Find(parent, parent[i]);
+    }
+
+    // Helper function to union two subsets
+    private bool Union(int[] parent, int x, int y)
+    {
+        int xRoot = Find(parent, x);
+        int yRoot = Find(parent, y);
+
+        if (xRoot == yRoot)
+            return false; // Cycle detected
+
+        parent[xRoot] = yRoot;
+        return true;
+    }
+
+    public bool IsValidTree(int n, int[][] edges)
+    {
+        // A valid tree must have exactly n-1 edges
+        if (edges.Length != n - 1)
+            return false;
+
+        // Create a parent array to keep track of the connected components
+        int[] parent = new int[n];
+        Array.Fill(parent, -1);
+
+        // Union-Find to check for cycles and connectivity
+        foreach (var edge in edges)
+        {
+            if (!Union(parent, edge[0], edge[1]))
+            {
+                return false; // Cycle detected
+            }
+        }
+
+        // If we processed all edges without finding a cycle, the graph is a valid tree
+        return true;
+    }
+}
+
+
+GraphValidTree gvt = new GraphValidTree();
+
+int n = 5;
+int[][] edges = new int[][]
+{
+    new int[] {0, 1},
+    new int[] {0, 2},
+    new int[] {0, 3},
+    new int[] {1, 4}
+};
+
+bool isValid = gvt.IsValidTree(n, edges);
+Console.WriteLine("Is valid tree: " + isValid); // Expected Output: true
+
+]]>
+		</code>
+	</section>
+
+</sections>
+
+</lesson>

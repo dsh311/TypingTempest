@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Remove N-th Node From End of Linked List.
+Given the head of a singly linked list and an integer n,
+remove the n-th node from the end of the list and return the modified list.
+
+Algorithm:
+To remove a node from the end, we use two pointers starting from the beginning.
+The first pointer moves n steps ahead. Then, both pointers slide forward together.
+When the first pointer reaches the end, the second pointer is positioned just before the node to remove.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+public class ListNode
+{
+    public int val;
+    public ListNode next;
+    public ListNode(int val = 0, ListNode next = null)
+    {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+public class LinkedList
+{
+    public ListNode RemoveNthFromEnd(ListNode head, int n)
+    {
+        // Create a dummy node to handle edge cases where the head needs to be removed
+        ListNode dummy = new ListNode(0, head);
+        ListNode first = dummy;
+        ListNode second = dummy;
+
+        // Move the first pointer n+1 steps ahead
+        for (int i = 0; i <= n; i++)
+        {
+            first = first.next;
+        }
+
+        // Move both pointers until the first pointer reaches the end
+        while (first != null)
+        {
+            first = first.next;
+            second = second.next;
+        }
+
+        // The second pointer is now pointing to the node before the node that needs to be removed
+        second.next = second.next.next;
+
+        // Return the head, which may have been updated
+        return dummy.next;
+    }
+}
+
+
+LinkedList linkedList = new LinkedList();
+
+// Create the linked list: 1 -> 2 -> 3 -> 4 -> 5
+ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+
+// Remove the 2nd node from the end
+ListNode newHead = linkedList.RemoveNthFromEnd(head, 2);
+
+// Print the resulting list
+ListNode current = newHead;
+while (current != null)
+{
+    Console.Write(current.val + " ");
+    current = current.next;
+}
+
+]]>
+		</code>
+	</section>
+
+</sections>
+
+</lesson>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Add Two Numbers (Linked List Representation)
+
+You are given two non-empty linked lists representing two non-negative integers.
+The digits are stored in reverse order, and each node contains a single digit.
+Add the two numbers and return the sum as a linked list.
+
+You may assume that the two numbers do not contain any leading zeros, except the number 0 itself.
+
+INPUT:
+l1 = 2 -> 4 -> 3
+l2 = 5 -> 6 -> 4
+
+OUTPUT:
+7 -> 0 -> 8
+
+(Which is 807)
+
+ALGORITHM:
+Approach:
+1. Use a dummy head node to build the resulting list.
+2. Maintain a carry variable to handle digit sums greater than 9.
+3. Traverse both lists while adding corresponding digits and handling the carry.
+4. If one list is shorter, continue adding with the remaining list.
+5[ If there's a final carry (e.g., 999 + 1 = 1000), add an extra node.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+public class ListNode
+{
+    public int val;
+    public ListNode next;
+    public ListNode(int x) { val = x; }
+}
+
+public class Solution
+{
+    public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+    {
+        ListNode dummyHead = new ListNode(0);
+        ListNode p = l1, q = l2, current = dummyHead;
+        int carry = 0;
+        
+        while (p != null || q != null)
+        {
+            int x = (p != null) ? p.val : 0;
+            int y = (q != null) ? q.val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            current.next = new ListNode(sum % 10);
+            current = current.next;
+
+            if (p != null) p = p.next;
+            if (q != null) q = q.next;
+        }
+        
+        if (carry > 0)
+        {
+            current.next = new ListNode(carry);
+        }
+        
+        return dummyHead.next;
+    }
+}
+
+ListNode l1 = new ListNode(2);
+l1.next = new ListNode(4);
+l1.next.next = new ListNode(3);
+
+ListNode l2 = new ListNode(5);
+l2.next = new ListNode(6);
+l2.next.next = new ListNode(4);
+
+Solution solution = new Solution();
+ListNode result = solution.AddTwoNumbers(l1, l2);
+
+while (result != null)
+{
+    Console.Write(result.val + " ");
+    result = result.next;
+}
+]]>
+		</code>
+	</section>
+
+</sections>
+
+</lesson>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Rotate an array of n elements to the right by k steps. Do not use the in-place reversal method.
+
+This approach of using Array.Copy is simple and clear, but it uses O(n) extra space,
+whereas the two-pointer (in-place reversal) method achieves the rotation in O(1) extra space.
+Whether one is "better" depends on your constraints.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+void rotateXTimes(int[] rotateMe, int rotateAmount)
+{
+    if (rotateMe == null || rotateMe.Length <= 1 || rotateAmount  <=0 || (rotateAmount % rotateMe.Length == 0))
+    {
+        return;
+    }
+    rotateAmount = rotateAmount % rotateMe.Length;
+    int[] finalArray = new int[rotateMe.Length];
+    int destIndex = rotateMe.Length - rotateAmount;
+    //Rotate right
+    Array.Copy(rotateMe, 0, finalArray, rotateAmount, destIndex);
+    Array.Copy(rotateMe, destIndex, finalArray, 0, rotateAmount);
+    Array.Copy(finalArray, rotateMe, finalArray.Length);
+}
+
+int[] rotateMeThree = Enumerable.Range(1, 10).ToArray();
+rotateXTimes(rotateMeThree, 3);
+]]>
+		</code>
+	</section>
+
+</sections>
+
+</lesson>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Write a function that rotates an array of n elements to the right by k steps.
+The function should modify the array in-place.
+
+Follow-up Questions:
+* Can you solve it with O(1) extra space?
+* What if k is greater than n? How can you optimize the solution?
+
+
+CLUE:
+When checking two indices in an array--one starting from a lower index and the other from a
+higher index--and needing to move them toward each other, use two variables (pointers).
+Move one forward and the other backward until they cross.
+This is an efficient way to solve problems involving searching, partitioning, or sorting in arrays.
+
+Where This Applies:
+1. Two-pointer technique (used in sorting, searching, etc.).
+2. Reversing an array in place.
+3. Finding a pair that sums to a target in a sorted array.
+4. Palindrome checking.
+5. Partitioning in QuickSort.
+
+
+ALGORITHM:
+Reversal Algorithm (O(1) space, O(n) time)
+
+1. Reverse the entire array
+2. Reverse the first k elements
+3. Reverse the remaining elements
+
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+using System;
+
+public class ArrayRotation
+{
+    public static void Rotate(int[] nums, int k)
+    {
+        int n = nums.Length;
+        k = k % n; // Handle cases where k > n
+
+        // Step 1: Reverse the entire array
+        Reverse(nums, 0, n - 1);
+
+        // Step 2: Reverse the first k elements
+        Reverse(nums, 0, k - 1);
+
+        // Step 3: Reverse the remaining n-k elements
+        Reverse(nums, k, n - 1);
+    }
+
+    // Helper method to reverse elements in the array between two indices
+    private static void Reverse(int[] nums, int start, int end)
+    {
+        while (start < end)
+        {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
+
+
+int[] nums = { 1, 2, 3, 4, 5, 6, 7 };
+int k = 3;
+
+Console.WriteLine("Original Array: " + string.Join(", ", nums));
+
+ArrayRotation.Rotate(nums, k);
+
+Console.WriteLine($"Array after rotating by {k} steps: " + string.Join(", ", nums));
+
+]]>
+		</code>
+	</section>
+
+</sections>
+
+</lesson>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Climbing Stairs
+
+You are climbing a staircase that has n steps. You can either take one step or two steps at a time.
+Your task is to determine the number of distinct ways you can reach the top of the staircase.
+
+Input: n = 5
+Output: 8
+Explanation:
+There are 8 ways to climb 5 stairs:
+
+1.  1-1-1-1-1
+2.  1-1-1-2
+3.  1-1-2-1
+4.  1-2-1-1
+5.  2-1-1-1
+6.  1-2-2
+7.  2-1-2
+8.  2-2-1
+
+
+Approach:
+This problem follows the Fibonacci sequence because to reach step n, you could have either:
+
+1. Taken a single step from step (n-1)
+2. Taken a two-step jump from step (n-2)
+
+This problem can be solved using recursion, dynamic programming (DP),
+or an iterative approach with constant space.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+public class ClimbingStairs
+{
+    public int ClimbStairs(int n)
+    {
+        if (n <= 1)
+            return 1;
+
+        int prev1 = 1, prev2 = 1;  // Base cases
+        int current = 0;
+
+        for (int i = 2; i <= n; i++)
+        {
+            current = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = current;
+        }
+
+        return prev1;
+    }
+}
+
+
+ClimbingStairs cs = new ClimbingStairs();
+
+int n = 5; // Example input
+int result = cs.ClimbStairs(n);
+
+Console.WriteLine($"Number of distinct ways to climb {n} stairs: {result}");
+]]>
+		</code>
+	</section>
+</sections>
+</lesson>

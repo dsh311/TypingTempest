@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Serialize and Deserialize Binary Tree
+
+Given a binary tree, the task is to implement an algorithm that allows for
+serialization and deserialization of the tree.
+
+* Serialization is the process of converting a binary tree into a string format, so that it can be easily stored or transmitted.
+* Deserialization is the process of reconstructing the binary tree from the serialized string.
+
+
+The problem requires the implementation of two methods:
+
+1. Serialize(TreeNode root): This method takes the root of the binary tree and returns a string representing the serialized version of the tree.
+2. Deserialize(string data): This method takes a serialized string and returns the root of the binary tree it represents.
+
+
+Example:
+For the following binary tree:
+
+      1
+     / \
+    2   3
+       / \
+      4   5
+
+Serialized Tree:
+"1,2,#,#,3,4,#,#,5,#,#"
+
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+public class TreeNode
+{
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+    {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+public class BinaryTreeCodec
+{
+    // Serialize the binary tree to a string
+    public string Serialize(TreeNode root)
+    {
+        if (root == null) return "null";
+
+        StringBuilder sb = new StringBuilder();
+        SerializeHelper(root, sb);
+        return sb.ToString();
+    }
+
+    // Helper function to serialize the binary tree
+    private void SerializeHelper(TreeNode node, StringBuilder sb)
+    {
+        if (node == null)
+        {
+            sb.Append("null,");
+            return;
+        }
+
+        sb.Append(node.val).Append(",");
+        SerializeHelper(node.left, sb);
+        SerializeHelper(node.right, sb);
+    }
+
+    // Deserialize the string back into a binary tree
+    public TreeNode Deserialize(string data)
+    {
+        if (string.IsNullOrEmpty(data)) return null;
+
+        Queue<string> nodes = new Queue<string>(data.Split(','));
+        return DeserializeHelper(nodes);
+    }
+
+    // Helper function to deserialize the string
+    private TreeNode DeserializeHelper(Queue<string> nodes)
+    {
+        string val = nodes.Dequeue();
+
+        if (val == "null")
+            return null;
+
+        TreeNode newNode = new TreeNode(int.Parse(val));
+        newNode.left = DeserializeHelper(nodes);
+        newNode.right = DeserializeHelper(nodes);
+
+        return newNode;
+    }
+
+}
+
+
+// Create a sample binary tree
+TreeNode root = new TreeNode(1);
+root.left = new TreeNode(2);
+root.right = new TreeNode(3);
+root.right.left = new TreeNode(4);
+root.right.right = new TreeNode(5);
+
+BinaryTreeCodec codec = new BinaryTreeCodec();
+
+// Serialize the tree
+string serialized = codec.Serialize(root);
+Console.WriteLine("Serialized Tree: " + serialized);
+
+// Deserialize the string back into a tree
+TreeNode deserializedRoot = codec.Deserialize(serialized);
+Console.WriteLine("Deserialization Complete.");
+]]>
+		</code>
+	</section>
+</sections>
+
+</lesson>

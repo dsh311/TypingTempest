@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Given an unsorted array of integers, return indices of the two numbers such that they add up
+
+CLUE:
+When given an unsorted array and needing to find two values that match a certain
+criterion (e.g., sum to a target), you should iterate through the array while storing
+values in a dictionary (hash table). This allows for quick lookups, improving search
+efficiency compared to a brute-force approach.
+
+This is essentially the hashing technique, which often improves search time from O(n^2) to O(n) in
+problems like two-sum or finding duplicates. If your goal is to find all occurrences of a value, you
+may need a dictionary that stores a list of indices instead of a single value.
+
+EXTRA:
+The compiler treats the method return type roughly like this: ValueTuple<int, int>
+
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+(int firstLoc, int secondLoc) getIndicesGivenSum(int[] searchMe, int targetSum)
+{
+    if (searchMe == null || searchMe.Length <= 1)
+    {
+        return (-1, -1);
+    }
+
+    // Dictionary to store the difference and its index
+    Dictionary<int, int> indices = new Dictionary<int, int>();
+
+    for (int i = 0; i < searchMe.Length; i++)
+    {
+        int difference = targetSum - searchMe[i];
+
+        // If the difference is already in the dictionary, we found a pair
+        if (indices.ContainsKey(difference))
+        {
+            return (indices[difference], i);
+        }
+
+        // Otherwise, add the current number and its index to the dictionary
+        if (!indices.ContainsKey(searchMe[i]))
+        {
+            indices.Add(searchMe[i], i);
+        }
+    }
+
+    Console.WriteLine("Nothing found");
+    return (-1, -1);
+}
+
+int[] searchMe = Enumerable.Range(1, 10).ToArray();
+int targetSum = 10;
+(int oneLoc, int twoLoc) = getIndicesGivenSum(searchMe, targetSum);
+if (oneLoc != -1 && twoLoc != -1)
+{
+    Console.WriteLine($"Found at: {oneLoc},{twoLoc} = ({searchMe[oneLoc]} + {searchMe[twoLoc]}) = {targetSum}");
+}
+]]>
+		</code>
+	
+	<!-- Add phrases for TTS -->
+	<speech>
+		<phrase start="1" end="10"
+			speaktext="Method return type is a tuple with named elements"
+			speakinfo="This is very interesting"/>
+		<phrase start="50" end="210" speaktext="A parameter of type is an integer array" />
+		<phrase start="200" end="210" speaktext="A key-value collection where both the key and the value are integers." />
+	</speech>
+	</section>
+</sections>
+
+</lesson>

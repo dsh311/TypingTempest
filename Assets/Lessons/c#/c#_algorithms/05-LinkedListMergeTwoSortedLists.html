@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Merge two sorted linked lists into a single linked list that is sorted in ascending order.
+
+ALGORITHM:
+* A dummy node (dummy) is used to simplify handling the head of the merged list.
+* A pointer (current) tracks the last node in the merged list.
+* The function compares values from l1 and l2, adding the smaller value to the merged list.
+* After merging all common elements, any remaining elements from either l1 or l2 are appended.
+* The function returns dummy.next, skipping the dummy node.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+public class ListNode
+{
+    public int val;
+    public ListNode next;
+    public ListNode(int val = 0, ListNode next = null)
+    {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+public class Solution
+{
+    public ListNode MergeTwoSortedLists(ListNode l1, ListNode l2)
+    {
+        // Create a dummy node to serve as the starting point for the merged list
+        ListNode dummy = new ListNode(-1);
+        ListNode current = dummy;
+
+        // Traverse both lists, adding the smallest node to the merged list
+        while (l1 != null && l2 != null)
+        {
+            if (l1.val <= l2.val)
+            {
+                current.next = l1;
+                l1 = l1.next;
+            }
+            else
+            {
+                current.next = l2;
+                l2 = l2.next;
+            }
+            current = current.next;
+        }
+
+        // Attach the remaining elements from either list, if any
+        if (l1 != null)
+        {
+            current.next = l1;
+        }
+        else if (l2 != null)
+        {
+            current.next = l2;
+        }
+
+        // The merged list starts from dummy.next, skipping the dummy node
+        return dummy.next;
+    }
+}
+]]>
+		</code>
+	</section>
+	
+</sections>
+
+</lesson>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Lowest Common Ancestor of a Binary Search Tree
+Given a binary search tree (BST) and two nodes p and q, return the lowest common ancestor (LCA) of the two nodes.
+
+The lowest common ancestor is the lowest (i.e., deepest) node in the tree that has both p and q as descendants.
+A node x is a descendant of a node y if x is in the subtree rooted at y.
+
+Input (Binary Search Tree):
+        6
+       / \
+      2   8
+     / \ / \
+    0  4 7  9
+      / \
+     3   5
+
+Nodes to find the LCA for: p = 2, q = 4
+
+Output:
+Lowest Common Ancestor of 2 and 4: 2
+
+Explanation:
+* The node with value 2 is the lowest common ancestor of itself and its descendant (node 4).
+Constraints:
+* The tree is a binary search tree.
+* The number of nodes in the tree is in the range [2, 10^5].
+* All values of nodes are unique.
+
+Approach:
+1. Binary Search Tree Property:
+
+* If both p and q are smaller than the current node, then the LCA must be in the left subtree.
+* If both p and q are larger than the current node, then the LCA must be in the right subtree.
+8 If one of p or q is smaller and the other is larger, the current node is the LCA.
+
+2. Time Complexity:
+The time complexity is O(h), where h is the height of the tree, as we only need to traverse the tree from the root to the LCA.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+using System;
+
+public class TreeNode
+{
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+    {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+public class BinarySearchTree
+{
+    public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+    {
+        // Base case: if root is null, return null
+        if (root == null)
+            return null;
+
+        // If both nodes p and q are greater than root, LCA must be in the right subtree
+        if (p.val > root.val && q.val > root.val)
+        {
+            return LowestCommonAncestor(root.right, p, q);
+        }
+        // If both nodes p and q are smaller than root, LCA must be in the left subtree
+        else if (p.val < root.val && q.val < root.val)
+        {
+            return LowestCommonAncestor(root.left, p, q);
+        }
+        // If p and q are on different sides of root, root is the LCA
+        else
+        {
+            return root;
+        }
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        // Create a binary search tree
+        TreeNode root = new TreeNode(6);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(8);
+        root.left.left = new TreeNode(0);
+        root.left.right = new TreeNode(4);
+        root.right.left = new TreeNode(7);
+        root.right.right = new TreeNode(9);
+        root.left.right.left = new TreeNode(3);
+        root.left.right.right = new TreeNode(5);
+
+        // Nodes to find the LCA for
+        TreeNode p = root.left;     // Node with value 2
+        TreeNode q = root.left.right; // Node with value 4
+
+        // Find the LCA
+        BinarySearchTree bst = new BinarySearchTree();
+        TreeNode lca = bst.LowestCommonAncestor(root, p, q);
+
+        Console.WriteLine("Lowest Common Ancestor of {0} and {1}: {2}", p.val, q.val, lca.val);
+    }
+}
+]]>
+		</code>
+	</section>
+	
+</sections>
+
+</lesson>

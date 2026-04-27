@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Given the root of a binary tree, return its in-order traversal as a list of integers.
+
+Traversal Order (In-Order):
+* Left subtree
+* Root node
+* Right subtree
+
+ALGORITHMS:
+Approach:
+1) Recursive Approach:
+* Traverse the left subtree.
+* Visit the root node.
+* Traverse the right subtree.
+
+
+2) Iterative Approach (Using Stack):
+* Use a stack to simulate recursion.
+* Push all left nodes onto the stack, then process the root, and finally traverse the right subtree.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+using System;
+using System.Collections.Generic;
+
+public class TreeNode
+{
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+    {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+public class BinaryTree
+{
+    public IList<int> InorderTraversal(TreeNode root)
+    {
+        List<int> result = new List<int>();
+        InorderHelper(root, result);
+        return result;
+    }
+
+    private void InorderHelper(TreeNode node, List<int> result)
+    {
+        if (node == null)
+            return;
+
+        // Traverse the left subtree
+        InorderHelper(node.left, result);
+
+        // Visit the root (current node)
+        result.Add(node.val);
+
+        // Traverse the right subtree
+        InorderHelper(node.right, result);
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        TreeNode root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3), null));
+        
+        BinaryTree tree = new BinaryTree();
+        IList<int> result = tree.InorderTraversal(root);
+        
+        Console.WriteLine("In-order Traversal:");
+        foreach (int val in result)
+        {
+            Console.Write(val + " ");
+        }
+    }
+}
+]]>
+		</code>
+	</section>
+</sections>
+
+</lesson>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson id="" title="" difficulty="" language="csharp" version="1.0">
+
+<settings>
+    <title>...</title>
+    <estimatedTimeMinutes>15</estimatedTimeMinutes>
+    <language>csharp</language>
+
+    <editor>
+        <syntaxHighlighting>true</syntaxHighlighting>
+        <theme>dark</theme>
+        <fontSize>12</fontSize>
+        <zoomFactor>1.0</zoomFactor>
+        <ignoreLineComments>false</ignoreLineComments>
+    </editor>
+
+    <audio>
+        <speechEnabled>true</speechEnabled>
+    </audio>
+</settings>
+
+<sections>
+
+	<section type="info">
+		<p>
+<![CDATA[
+PROBLEM:
+Reverse a singly linked list.
+
+ALGORITHM:
+
+Steps:
+1. Initialize Three Pointers:
+* previous: Set to null initially (this will eventually be the new head of the reversed list).
+* current: Set to the head of the list.
+* next: Set to null initially (this will be used to temporarily store the next node).
+
+2. Iterate Through the List:
+* While current is not null, repeat the following steps:
+* * Save the next node (next = current.next).
+* * Reverse the link by pointing the current.next to previous (current.next = previous).
+* * Move the previous pointer one step forward (previous = current).
+* * Move the current pointer one step forward (current = next).
+
+3. Return the New Head:
+* After the loop finishes, previous will point to the new head of the reversed list.
+
+]]>
+		</p>
+	</section>
+
+	<section type="code">
+		<code language="csharp" >
+<![CDATA[
+// Definition for singly-linked list.
+public class ListNode
+{
+    public int val;
+    public ListNode next;
+    public ListNode(int x) { val = x; }
+}
+
+public class LinkedListReversal
+{
+    public ListNode ReverseList(ListNode head)
+    {
+        ListNode prev = null;  // Initialize previous node as null
+        ListNode current = head;  // Start with the head of the list
+        
+        while (current != null)
+        {
+            ListNode nextTemp = current.next;  // Store next node
+            current.next = prev;  // Reverse the current node's pointer
+            prev = current;  // Move prev to current
+            current = nextTemp;  // Move to the next node
+        }
+        
+        return prev;  // prev will be the new head of the reversed list
+    }
+}
+
+
+// Create a linked list: 1 -> 2 -> 3 -> 4 -> 5
+ListNode head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(3);
+head.next.next.next = new ListNode(4);
+head.next.next.next.next = new ListNode(5);
+
+LinkedListReversal reversal = new LinkedListReversal();
+ListNode reversedHead = reversal.ReverseList(head);
+
+// Print result
+while (reversedHead != null)
+{
+    Console.WriteLine("Value: " + reversedHead.val);
+    reversedHead = reversedHead.next;
+}
+
+]]>
+		</code>
+	</section>
+
+</sections>
+
+</lesson>
