@@ -9,4 +9,4 @@ TypingTempest is an educational tool designed to give feedback when typing a seq
 3. Utilize the backspace key to correct any mistyped sequences.
 
 
-![TypingTempest](TypingTempestDemo.gif)  
+![TypingTempest](../TypingTempestDemo.gif)  
